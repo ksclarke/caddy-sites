@@ -1,0 +1,10 @@
+
+# Enables the admin API (Can only be accessed locally because of Docker's port mapping)
+{
+        admin 0.0.0.0:9999
+}
+
+# Proxies the jpv3-webrepl service running on this same machine (and handles TLS for us)
+jpv3.lisforge.net {
+	reverse_proxy http://jpv3.lisforge.net:8888
+}
