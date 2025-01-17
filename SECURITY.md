@@ -2,7 +2,9 @@
 
 ## Supported Versions
 
-Only the version associated with the latest tag in this repository is supported. This repo is really more for my own deployment purposes, though someone else may also find the setup interesting for their own purposes, too, maybe(?)
+Only the version associated with the latest tag in this repository is supported.
+
+This repo is really more for my own deployment purposes, though someone else may also find the setup useful, too, maybe(?)
 
 ## Reporting a Vulnerability
 
