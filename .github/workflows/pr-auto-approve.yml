@@ -18,4 +18,4 @@ jobs:
     - uses: hmarr/auto-approve-action@v2.0.0
       if: env.AUTO_PR_APPROVAL != null
       with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}"
+        github-token: "${{ secrets.PR_APPROVAL_PAT }}"
