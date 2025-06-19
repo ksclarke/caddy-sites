@@ -11,11 +11,11 @@ jobs:
 
     steps:
       - name: Check out source code
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Docker
         if: ${{ !env.ACT || env.ACT == '' }}
-        uses: crazy-max/ghaction-setup-docker@26145a578dce008fee793528d031cd72c57d51af # v3.4.0
+        uses: crazy-max/ghaction-setup-docker@b60f85385d03ac8acfca6d9996982511d8620a19 # v4.3.0
         with:
           set-host: true
           daemon-config: |
@@ -27,7 +27,7 @@ jobs:
             }
 
       - name: Login to Docker repository
-        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b # v2.0.0
+        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -39,7 +39,7 @@ jobs:
             --adapter caddyfile | jq . > caddy-config.json
 
       - name: SCP config to server
-        uses: appleboy/scp-action@917f8b81dfc1ccd331fef9e2d61bdc6c8be94634 # v0.1.7
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -49,7 +49,7 @@ jobs:
           target: /tmp
 
       - name: SSH to server and deploy
-        uses: appleboy/ssh-action@25ce8cbbcb08177468c7ff7ec5cbfa236f9341e1 # v1.1.0
+        uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
