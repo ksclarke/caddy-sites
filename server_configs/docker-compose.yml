@@ -1,4 +1,22 @@
 services:
+  webrepl:
+    image: ksclarke/jpv3-webrepl:0.1.2
+    container_name: webrepl
+    ports:
+      - "8888:8888"
+    restart: unless-stopped
+  audiobooks:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobooks
+    ports:
+      - "13378:80"
+    volumes:
+      - "./audiobookshelf/audiobooks:/audiobooks"
+      - "./audiobookshelf/podcasts:/podcasts"
+      - "./audiobookshelf/config:/config"
+      - "./audiobookshelf/metadata:/metadata"
+    environment:
+      - "TZ=America/New_York"
   diun:
     image: crazymax/diun:latest
     container_name: diun
