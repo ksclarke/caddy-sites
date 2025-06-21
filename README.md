@@ -15,7 +15,7 @@ There are also some systemd service files in the `services` folder. They manage 
 mounts and the startup/configuration of Docker Compose-controlled web services. Currently, these `*.service` files are
 just stored here for safekeeping; there is no automated synchronization between this repo and the server for them.
 
-tl;dr: Updates are automated, but changes to the `services/*.service` files still require manual updates on the server.
+_tl;dr: Updates are automated, but changes to the `services/*.service` files still require manual updates on the server._
 
 ### Contact
 
