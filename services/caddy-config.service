@@ -1,0 +1,12 @@
+[Unit]
+Description=Send proxy config to Caddy server on boot
+After=network-online.target docker-compose.service
+Wants=network-online.target
+Requires=docker-compose.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'for i in {1..10}; do if curl -fs http://172.17.0.1:9999/config/ >/dev/null; then echo "Caddy admin is up."; break; fi; echo "Caddy admin not up yet, waiting..."; sleep 2; done; /usr/bin/curl -sL -H "Content-Type: application/json" --data-binary "@/home/ga_bot/.cache/caddy/caddy-config.json" http://172.17.0.1:9999/config/'
+
+[Install]
+WantedBy=multi-user.target
