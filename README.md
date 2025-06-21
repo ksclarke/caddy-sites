@@ -1,11 +1,19 @@
 ## Caddy-Sites
 
-This repo contains:
-* A root `Caddyfile` that controls how different services are routed on my Digital Ocean server. This is deployed to the server via this repo's GitHub Action (on creation of a tag in this repo).
-* A `server-configs` directory, which contains a clean `Caddyfile` with the `admin` interface enabled and a `docker-compose.yml` file that runs the Caddy Docker container on the server (stored here in case the server ever needs to be recreated from scratch).
-* A GitHub Action that publishes the latest tagged version of the root `Caddyfile` to the Digital Ocean server's `admin` endpoint.
+This repository is the source control for my DigitalOcean-hosted Docker droplet (i.e., my virtual server in the cloud).
 
-Access to the Caddy `admin` endpoint is controlled by the `docker-compose.yml` file, which only opens the port to the local server. The GitHub Action in this repo shells into the Digital Ocean server to run commands locally.
+It has hard-coded values because I assume I’m the only one who will ever use it. However, if you find something here
+that’s useful, feel free to borrow it for your own purposes.
+
+### Getting Started
+
+The `Caddyfile` at the root of this repo configures Caddy as a proxy server for the services running in Docker
+containers. The `docker-compose.yml` file specifies which services are managed by Docker. Both files are uploaded
+to the server by this repo's GitHub Actions whenever a new version of the repo is tagged.
+
+There are also some systemd service files in the `services` folder. They manage the DigitalOcean Spaces (S3-compatible)
+mounts and the startup/configuration of Docker Compose-controlled web services. Currently, these `*.service` files are
+just stored here for safekeeping; there is no automated synchronization between this repo and the server for them.
 
 ### Contact
 
