@@ -1,0 +1,24 @@
+[Unit]
+Description=Rclone mount for DigitalOcean Spaces (AudioBooks)
+Documentation=https://rclone.org/commands/rclone_mount/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/rclone mount AudioBooks:ksclarke-audiobooks /home/ga_bot/audiobookshelf/audiobooks \ 
+  --rc --rc-addr 127.0.0.1:5572 --rc-no-auth \
+  --vfs-cache-mode full \
+  --vfs-cache-max-size 10G \
+  --vfs-cache-max-age 24h \
+  --dir-cache-time 15m \
+  --log-level INFO --syslog
+
+ExecStop=/bin/fusermount -uz /home/ga_bot/audiobookshelf/audiobooks
+Environment=PATH=/usr/bin
+Restart=always
+RestartSec=10
+TimeoutSec=30
+
+[Install]
+WantedBy=multi-user.target

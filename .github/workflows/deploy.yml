@@ -38,6 +38,16 @@ jobs:
           docker run --rm -v $PWD:/srv caddy caddy adapt --config /srv/Caddyfile \
             --adapter caddyfile | jq . > caddy-config.json
 
+      - name: Create config cache directory on server
+        uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
+          script: |
+            mkdir -p .cache/caddy/
+
       - name: SCP config to server
         uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
         with:
@@ -46,7 +56,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
           source: caddy-config.json
-          target: /tmp
+          target: .cache/caddy/
 
       - name: SSH to server and deploy
         uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
@@ -58,4 +68,4 @@ jobs:
           envs: ARTIFACT_NAME,RELEASE_VERSION,REPO_OWNER
           script: |
             curl -s -H "Content-Type: application/json" \
-              --data-binary "@/tmp/caddy-config.json" http://172.17.0.1:9999/config/
+              --data-binary "@.cache/caddy/caddy-config.json" http://172.17.0.1:9999/config/

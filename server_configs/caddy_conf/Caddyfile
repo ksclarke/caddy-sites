@@ -1,5 +1,0 @@
-
-# This is the default Caddyfile that is overridden by GitHub Actions
-{
-	admin 0.0.0.0:9999
-}
