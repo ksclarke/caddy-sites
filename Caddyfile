@@ -8,3 +8,8 @@
 jpv3.lisforge.net {
 	reverse_proxy http://jpv3.lisforge.net:8888
 }
+
+# Proxies the audiobooks service running on this same machine (and handles TLS for us)
+ab.kevinclarke.info {
+	reverse_proxy http://ab.kevinclarke.info:8889
+}
