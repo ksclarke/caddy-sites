@@ -5,7 +5,7 @@ services:
     image: ksclarke/jpv3-webrepl:0.1.2
     container_name: webrepl
     ports:
-      - "8888:8888"
+      - "127.0.0.1:8888:8888"
     depends_on:
       - caddy
 
@@ -14,7 +14,7 @@ services:
     image: ghcr.io/advplyr/audiobookshelf:latest
     container_name: audiobooks
     ports:
-      - "8889:80"
+      - "127.0.0.1:8889:80"
     volumes:
       - /home/ga_bot/audiobookshelf/audiobooks:/audiobooks
       - /home/ga_bot/audiobookshelf/podcasts:/podcasts
