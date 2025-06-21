@@ -4,8 +4,8 @@ services:
   webrepl:
     image: ksclarke/jpv3-webrepl:0.1.2
     container_name: webrepl
-    ports:
-      - "127.0.0.1:8888:8888"
+    networks:
+      - proxy
     depends_on:
       - caddy
 
@@ -13,8 +13,8 @@ services:
   audiobooks:
     image: ghcr.io/advplyr/audiobookshelf:latest
     container_name: audiobooks
-    ports:
-      - "127.0.0.1:8889:80"
+    networks:
+      - proxy
     volumes:
       - /home/ga_bot/audiobookshelf/audiobooks:/audiobooks
       - /home/ga_bot/audiobookshelf/podcasts:/podcasts
@@ -60,6 +60,8 @@ services:
     container_name: caddy
     cap_add:
       - NET_ADMIN
+    networks:
+      - proxy
     ports:
       - "80:80"                  # HTTP
       - "443:443"                # HTTPS
@@ -71,3 +73,6 @@ services:
 
 volumes:
   caddy_data:
+
+networks:
+  proxy:
