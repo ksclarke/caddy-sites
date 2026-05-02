@@ -19,4 +19,5 @@ _tl;dr: Updates are automated, but changes to the `services/*.service` files sti
 
 ### Contact
 
-If you'd like to communicate about this repo, feel free to open a [ticket](https://github.com/ksclarke/caddy-sites/issues) or, if you're reporting a security issue, feel free to [contact me](mailto:my.security@kevinclarke.info) directly.
+If you'd like to communicate about this repo, feel free to open a [ticket](https://github.com/ksclarke/caddy-sites/issues)
+or, if you're reporting a security issue, feel free to [contact me](mailto:my.security@kevinclarke.info) directly.
