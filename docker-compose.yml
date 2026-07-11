@@ -8,6 +8,7 @@ services:
       - proxy
     depends_on:
       - caddy
+    restart: unless-stopped
 
   # An audiobook service
   audiobooks:
@@ -24,6 +25,7 @@ services:
       - TZ=America/New_York
     depends_on:
       - caddy
+    restart: unless-stopped
 
   # A proxy server that magically handles TLS connections
   caddy:
@@ -41,6 +43,7 @@ services:
     volumes:
       - /home/ga_bot/caddy:/etc/caddy  # Caddy configuration
       - caddy_data:/data               # Persistent data storage
+    restart: unless-stopped
 
 volumes:
   caddy_data:
