@@ -6,19 +6,25 @@ Wants=network-online.target
 
 [Service]
 Type=notify
-ExecStart=/usr/bin/rclone mount DigitalOcean:ksclarke-audiobooks /home/ga_bot/audiobookshelf/audiobooks \ 
-  --rc --rc-addr 127.0.0.1:5572 --rc-no-auth \
-  --vfs-cache-mode full \
-  --vfs-cache-max-size 10G \
-  --vfs-cache-max-age 24h \
-  --dir-cache-time 15m \
+
+User=ga_bot
+Group=ga_bot
+
+ExecStart=/usr/bin/rclone mount DigitalOcean:ksclarke-audiobooks /home/ga_bot/audiobookshelf/audiobooks \
+  --config=/home/ga_bot/.config/rclone/rclone.conf \
+  --allow-other \
+  --vfs-cache-mode=full \
+  --vfs-cache-max-size=10G \
+  --vfs-cache-max-age=24h \
+  --dir-cache-time=15m \
+  --cache-dir=/home/ga_bot/.cache/rclone \
   --log-level INFO --syslog
 
 ExecStop=/bin/fusermount -uz /home/ga_bot/audiobookshelf/audiobooks
-Environment=PATH=/usr/bin
-Restart=always
+
+Restart=on-failure
 RestartSec=10
-TimeoutSec=30
+TimeoutStopSec=30
 
 [Install]
 WantedBy=multi-user.target

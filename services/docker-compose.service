@@ -1,4 +1,4 @@
-[Unit] Description=Audiobookshelf via Docker Compose 
+[Unit] Description=Websites served via Docker Compose 
 Requires=rclone-audiobooks.service 
 After=rclone-audiobooks.service
 Wants=network-online.target
@@ -12,6 +12,7 @@ ExecStop=/usr/bin/docker compose down
 Restart=always
 RestartSec=10
 User=ga_bot
+Group=ga_bot
 
 [Install]
 WantedBy=multi-user.target
