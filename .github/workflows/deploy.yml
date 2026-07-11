@@ -1,6 +1,7 @@
 name: Site Deployment
 
 on:
+  workflow_dispatch:
   push:
     tags: [ '*' ]
 
@@ -21,7 +22,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
           source: Caddyfile
-          target: caddy/Caddyfile
+          target: caddy/
 
       - name: SCP docker-compose config to server
         uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
