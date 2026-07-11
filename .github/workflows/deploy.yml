@@ -1,6 +1,7 @@
 name: Site Deployment
 
 on:
+  workflow_dispatch:
   push:
     tags: [ '*' ]
 
