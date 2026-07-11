@@ -11,7 +11,7 @@ services:
 
   # An audiobook service
   audiobooks:
-    image: ghcr.io/advplyr/audiobookshelf:latest
+    image: ghcr.io/advplyr/audiobookshelf:2.35.1
     container_name: audiobooks
     networks:
       - proxy
@@ -27,7 +27,7 @@ services:
 
   # A proxy server that magically handles TLS connections
   caddy:
-    image: caddy:alpine
+    image: caddy:2.11.4-alpine
     container_name: caddy
     cap_add:
       - NET_ADMIN
