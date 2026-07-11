@@ -13,41 +13,6 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Set up Docker
-        if: ${{ !env.ACT || env.ACT == '' }}
-        uses: crazy-max/ghaction-setup-docker@b60f85385d03ac8acfca6d9996982511d8620a19 # v4.3.0
-        with:
-          set-host: true
-          daemon-config: |
-            {
-              "debug": true,
-              "features": {
-                "containerd-snapshotter": true
-              }
-            }
-
-      - name: Login to Docker repository
-        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Convert Caddyfile to JSON
-        shell: bash
-        run: |
-          docker run --rm -v $PWD:/srv caddy caddy adapt --config /srv/Caddyfile \
-            --adapter caddyfile | jq . > caddy-config.json
-
-      - name: Create cache directory on the DigitalOcean server
-        uses: appleboy/ssh-action@2ead5e36573f08b82fbfce1504f1a4b05a647c6f # v1.2.2
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
-          script: |
-            mkdir -p .cache/caddy/
-
       - name: SCP caddy config to server
         uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
         with:
@@ -55,8 +20,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
-          source: caddy-config.json
-          target: .cache/caddy/
+          source: Caddyfile
+          target: caddy/Caddyfile
 
       - name: SCP docker-compose config to server
         uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
@@ -77,5 +42,4 @@ jobs:
           passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
           envs: ARTIFACT_NAME,RELEASE_VERSION,REPO_OWNER
           script: |
-            curl -s -H "Content-Type: application/json" \
-              --data-binary "@.cache/caddy/caddy-config.json" http://172.17.0.1:9999/config/
+            docker compose restart caddy
