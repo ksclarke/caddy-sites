@@ -1,0 +1,29 @@
+[Unit]
+Description=Rclone mount for the DigitalOcean Spaces livemusic bucket
+Documentation=https://rclone.org/commands/rclone_mount/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+
+User=ga_bot
+Group=ga_bot
+
+ExecStart=/usr/bin/rclone mount DigitalOcean:ksclarke-livemusic /home/ga_bot/navidrome/livemusic \
+  --config=/home/ga_bot/.config/rclone/rclone.conf \
+  --allow-other \
+  --vfs-cache-mode=full \
+  --vfs-cache-max-size=10G \
+  --vfs-cache-max-age=24h \
+  --dir-cache-time=15m \
+  --cache-dir=/home/ga_bot/.cache/rclone
+
+ExecStop=/bin/fusermount -uz /home/ga_bot/navidrome/livemusic
+
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

@@ -14,6 +14,8 @@ services:
   audiobooks:
     image: ghcr.io/advplyr/audiobookshelf:2.35.1
     container_name: audiobooks
+    environment:
+      - TZ=America/New_York
     networks:
       - proxy
     volumes:
@@ -21,8 +23,26 @@ services:
       - /home/ga_bot/audiobookshelf/podcasts:/podcasts
       - /home/ga_bot/audiobookshelf/config:/config
       - /home/ga_bot/audiobookshelf/metadata:/metadata
+    depends_on:
+      - caddy
+    restart: unless-stopped
+
+  # A streaming music service
+  music:
+    image: deluan/navidrome:0.63.2
+    container_name: music
     environment:
-      - TZ=America/New_York
+      TZ: America/New_York
+      ND_SCANINTERVAL: 1h
+      ND_LASTFM_APIKEY: "${LASTFM_APIKEY}"
+      ND_LASTFM_SECRET: "${LASTFM_SECRET}"
+    user: 1001:1001
+    networks:
+      - proxy
+    volumes:
+      - /home/ga_bot/navidrome/data:/data
+      - /home/ga_bot/navidrome/music:/music:ro
+      - /home/ga_bot/navidrome/livemusic:/livemusic:ro
     depends_on:
       - caddy
     restart: unless-stopped
