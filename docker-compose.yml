@@ -47,6 +47,23 @@ services:
       - caddy
     restart: unless-stopped
 
+  # An ebook server
+  ebooks:
+    image: jvmilazz0/kavita:0.9.0.2
+    container_name: ebooks
+    volumes:
+      - /home/ga_bot/kavita/manga:/manga
+      - /home/ga_bot/kavita/comics:/comics
+      - /home/ga_bot/kavita/ebooks:/books
+      - /home/ga_bot/kavita/config:/kavita/config
+    environment:
+      - TZ=Your/Timezone
+    networks:
+      - proxy
+    depends_on:
+      - caddy
+    restart: unless-stopped
+
   # A proxy server that magically handles TLS connections
   caddy:
     image: caddy:2.11.4-alpine
