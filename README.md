@@ -6,8 +6,8 @@ This repository contains the configuration files for my DigitalOcean droplet.
 
 The repository root contains two primary configuration files:
 
-- `Caddyfile` configures Caddy as a reverse proxy for services running in Docker containers.
-- `docker-compose.yml` defines the Docker services managed on the droplet.
+- `Caddyfile` configures Caddy as a reverse proxy for services running in Docker containers
+- `docker-compose.yml` defines the Docker services managed on the droplet
 
 When a repository version is tagged, a GitHub Actions workflow deploys both files to the server. See [`.github/workflows`](./.github/workflows) for the deployment workflow.
 
