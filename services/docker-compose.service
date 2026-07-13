@@ -1,11 +1,14 @@
 [Unit]
 Description=Caddy served websites via Docker Compose
-Requires=rclone-audiobooks.service rclone-livemusic.service rclone-music.service
-After=rclone-audiobooks.service rclone-livemusic.service rclone-music.service
+Requires=rclone-audiobooks.service rclone-livemusic.service rclone-music.service rclone-ebooks.service rclone-comics.service rclone-manga.service
+After=rclone-audiobooks.service rclone-livemusic.service rclone-music.service rclone-ebooks.service rclone-comics.service rclone-manga.service
 Wants=network-online.target
 RequiresMountsFor=/home/ga_bot/audiobookshelf/audiobooks
 RequiresMountsFor=/home/ga_bot/navidrome/livemusic
 RequiresMountsFor=/home/ga_bot/navidrome/music
+RequiresMountsFor=/home/ga_bot/kavita/ebooks
+RequiresMountsFor=/home/ga_bot/kavita/comics
+RequiresMountsFor=/home/ga_bot/kavita/manga
 
 [Service]
 Type=oneshot
