@@ -9,14 +9,17 @@ The repository root contains two primary configuration files:
 - `Caddyfile` configures Caddy as a reverse proxy for services running in Docker containers.
 - `docker-compose.yml` defines the Docker services managed on the droplet.
 
-When a repository version is tagged, GitHub Actions deploy both files to the server. See [`.github/workflows`](./.github/workflows) for the deployment workflow.
+When a repository version is tagged, a GitHub Actions workflow deploys both files to the server. See [`.github/workflows`](./.github/workflows) for the deployment workflow.
 
-The `services/` directory contains systemd unit files. These manage the DigitalOcean Spaces (S3-compatible) mounts and control startup ordering for Docker Compose services. These files are currently stored here for reference and backup only; changes to them are not automatically deployed to the droplet.
+### Host Configuration
 
-Additional host-level configuration files are stored in the following locations:
+The following files are stored in this repository for reference and backup. They are not automatically deployed or synchronized to the droplet.
 
-- `etc/fuse.conf` corresponds to `/etc/fuse.conf` on the droplet.
-- `config/rclone/rclone.conf` corresponds to `$HOME/.config/rclone/rclone.conf` on the droplet.
+| Repository path | Purpose | Path on Droplet |
+| --- | --- | --- |
+| `services/*.service` | These are systemd units for DigitalOcean Spaces mounts and Docker Compose service startup/order | `/etc/systemd/system/` |
+| `etc/fuse.conf` | This is a FUSE configuration, which includes the settings required by the rclone mounts | `/etc/fuse.conf` |
+| `config/rclone/rclone.conf` | This is an rclone configuration for use with the mounted DigitalOcean Spaces buckets | `$HOME/.config/rclone/rclone.conf` |
 
 ### Contact
 
