@@ -15,6 +15,20 @@ jpv3.lisforge.net {
 #
 # Proxies the audiobooks service running on this same machine (and handles TLS for us)
 #
-ab.kevinclarke.info {
+audiobooks.kevinclarke.info {
 	reverse_proxy http://audiobooks:80
+}
+
+#
+# Proxies the music service running on this same machine (and handles TLS for us)
+#
+music.kevinclarke.info {
+        reverse_proxy http://music:4533
+}
+
+#
+# Proxies the ebooks service running on this same machine (and handles TLS for us)
+#
+ebooks.kevinclarke.info {
+        reverse_proxy http://ebooks:5000
 }
