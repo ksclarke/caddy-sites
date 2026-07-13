@@ -17,9 +17,9 @@ The following files are stored in this repository for reference and backup. They
 
 | Repository path | Purpose | Path on Droplet |
 | --- | --- | --- |
-| `services/*.service` | These are systemd units for DigitalOcean Spaces mounts and Docker Compose service startup/order | `/etc/systemd/system/` |
-| `etc/fuse.conf` | This is a FUSE configuration, which includes the settings required by the rclone mounts | `/etc/fuse.conf` |
-| `config/rclone/rclone.conf` | This is an rclone configuration for use with the mounted DigitalOcean Spaces buckets | `$HOME/.config/rclone/rclone.conf` |
+| `services/*.service` | Systemd units for the DigitalOcean S3-compatible mounts and Docker Compose service | `/etc/systemd/system/` |
+| `etc/fuse.conf` | A FUSE configuration, which includes the settings required by the rclone mounts | `/etc/fuse.conf` |
+| `config/rclone/rclone.conf` | An rclone configuration file for the mounted S3-compatible DigitalOcean buckets | `$HOME/.config/rclone/rclone.conf` |
 
 ### Contact
 
