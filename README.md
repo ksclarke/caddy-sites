@@ -6,8 +6,8 @@ This repository contains the configuration files for my DigitalOcean droplet.
 
 The repository root contains two primary configuration files:
 
-- `Caddyfile` configures Caddy as a reverse proxy for services running in Docker containers.
-- `docker-compose.yml` defines the Docker services managed on the droplet.
+- `Caddyfile` configures Caddy as a reverse proxy for services running in Docker containers
+- `docker-compose.yml` defines the Docker services managed on the droplet
 
 When a repository version is tagged, a GitHub Actions workflow deploys both files to the server. See [`.github/workflows`](./.github/workflows) for the deployment workflow.
 
@@ -19,7 +19,7 @@ The following files are stored in this repository for reference and backup. They
 | --- | --- | --- |
 | `services/*.service` | Systemd units for the S3-compatible DigitalOcean mounts and Docker Compose service | `/etc/systemd/system/` |
 | `etc/fuse.conf` | A FUSE configuration, which includes the settings required by the rclone mounts | `/etc/fuse.conf` |
-| `config/rclone/rclone.conf` | An rclone configuration file for the mounted S3-compatible DigitalOcean buckets | `$HOME/.config/rclone/rclone.conf` |
+| `config/rclone/rclone.conf` | An rclone configuration file for the mounted, S3-compatible DigitalOcean buckets | `$HOME/.config/rclone/rclone.conf` |
 
 ### Contact
 
