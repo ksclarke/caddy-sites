@@ -1,0 +1,4 @@
+[submodule "weblog"]
+	path = weblog
+	url = git@github.com:ksclarke/weblog.git
+	branch = main
