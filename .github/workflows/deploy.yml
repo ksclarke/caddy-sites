@@ -41,8 +41,6 @@ jobs:
           persist-credentials: false
 
       - name: Check out weblog submodule
-        env:
-          GIT_SSH_COMMAND: ssh -o IdentitiesOnly=yes
         run: |
           git submodule sync --recursive
           git submodule update --init --recursive
