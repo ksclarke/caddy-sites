@@ -73,13 +73,14 @@ services:
     networks:
       - proxy
     ports:
-      - "80:80"                        # HTTP
-      - "443:443"                      # HTTPS
-      - "443:443/udp"                  # UDP for HTTPS
-      - "172.17.0.1:9999:9999"         # Admin API
+      - "80:80"                                  # HTTP
+      - "443:443"                                # HTTPS
+      - "443:443/udp"                            # UDP for HTTPS
+      - "172.17.0.1:9999:9999"                   # Admin API
     volumes:
-      - /home/ga_bot/caddy:/etc/caddy  # Caddy configuration
-      - caddy_data:/data               # Persistent data storage
+      - /home/ga_bot/caddy:/etc/caddy            # Caddy configuration
+      - /home/ga_bot/weblog:/usr/share/caddy:ro  # Kevin's weblog
+      - caddy_data:/data                         # Persistent data storage
     restart: unless-stopped
 
 volumes:
